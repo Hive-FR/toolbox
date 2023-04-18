@@ -8,20 +8,22 @@ Vous devez avoir NodeJS d'installé : https://nodejs.org/fr
 
 ## Installation
 
-cloner le dépôt git
+1. cloner le dépôt git
 
 ```
 git clone https://github.com/Hive-FR/toolbox.git
 ```
 
-rendez-vous dans le dossier et lancer l'installation des packets
+ou téléchargez le zip du git : https://github.com/Hive-FR/toolbox/archive/refs/heads/main.zip
+
+2. rendez-vous dans le dossier et lancer l'installation des packets
 
 ```
 cd ./toolbox
 npm install
 ```
 
-lancer la boite à outils
+3. lancer la boite à outils
 
 ```
 npm start
