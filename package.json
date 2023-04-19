@@ -1,6 +1,6 @@
 {
   "name": "toolbox",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Boite à outils pour la blockchain Hive",
   "type": "module",
   "node": ">=14.16",
