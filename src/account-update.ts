@@ -21,7 +21,7 @@ export const accountAddKey = async (): Promise<void> => {
       {
         type: "input",
         name: "signingKey",
-        message: "Quel est la OWNER key de l'utilisateur ?",
+        message: "Quel est la clé OWNER privé de l'utilisateur ?",
       },
       //------------------------------------------
       {
@@ -65,7 +65,7 @@ export const accountAddKey = async (): Promise<void> => {
       {
         type: 'input',
         name: 'keyOwner',
-        message: 'Quel est la clé OWNER à ajouter ?',
+        message: 'Quel est la clé OWNER publique à ajouter ?',
         when: (answers) => answers.addToOwner,
       },
       //------------------------------------------
@@ -110,7 +110,7 @@ export const accountAddKey = async (): Promise<void> => {
       {
         type: 'input',
         name: 'keyActive',
-        message: 'Quel est la clé ACTIVE à ajouter ?',
+        message: 'Quel est la clé ACTIVE publique à ajouter ?',
         when: (answers) => answers.addToActive,
       },
       //------------------------------------------
@@ -155,7 +155,7 @@ export const accountAddKey = async (): Promise<void> => {
       {
         type: 'input',
         name: 'keyPosting',
-        message: 'Quel est la clé POSTING à ajouter ?',
+        message: 'Quel est la clé POSTING publique à ajouter ?',
         when: (answers) => answers.addToPosting,
       },
     ])
@@ -182,7 +182,14 @@ export const accountAddKey = async (): Promise<void> => {
 
       const owner = accounts[0].owner
       owner.weight_threshold = Number(answers['weigthThresholdOwner'])
-      owner.key_auths.push([answers['keyOwner'], Number(answers['weigthOwner'])])
+
+      const indexKey = owner.key_auths.findIndex(k => k[0] === answers['keyOwner'])
+      if(indexKey >= 0) {
+        owner.key_auths[indexKey]![1] = Number(answers['weigthOwner']) 
+      } else {
+        owner.key_auths.push([answers['keyOwner'], Number(answers['weigthOwner'])])
+      }
+
       owner.key_auths = sort(owner.key_auths)
       AccountUpdate[1].owner = owner
     }
@@ -194,7 +201,14 @@ export const accountAddKey = async (): Promise<void> => {
 
       const active = accounts[0].active
       active.weight_threshold = Number(answers['weigthThresholdActive'])
-      active.key_auths.push([answers['keyActive'], Number(answers['weigthActive'])])
+
+      const indexKey = active.key_auths.findIndex(k => k[0] === answers['keyActive'])
+      if(indexKey >= 0) {
+        active.key_auths[indexKey]![1] = Number(answers['weigthActive']) 
+      } else {
+        active.key_auths.push([answers['keyActive'], Number(answers['weigthActive'])])
+      }
+
       active.key_auths = sort(active.key_auths)
       AccountUpdate[1].active = active
     }
@@ -206,7 +220,14 @@ export const accountAddKey = async (): Promise<void> => {
 
       const posting = accounts[0].posting
       posting.weight_threshold = Number(answers['weigthThresholdPosting'])
-      posting.key_auths.push([answers['keyPosting'], Number(answers['weigthPosting'])])
+
+      const indexKey = posting.key_auths.findIndex(k => k[0] === answers['keyPosting'])
+      if(indexKey >= 0) {
+        posting.key_auths[indexKey]![1] = Number(answers['weigthPosting']) 
+      } else {
+        posting.key_auths.push([answers['keyPosting'], Number(answers['weigthPosting'])])
+      }
+
       posting.key_auths = sort(posting.key_auths)
       AccountUpdate[1].posting = posting
     }
